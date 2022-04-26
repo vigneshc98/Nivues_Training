@@ -6,6 +6,7 @@ const forecast = require('./utils/forecast');
 const geocode = require('./utils/geocode');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 // console.log(__dirname);
 // console.log(path.join(__dirname,'../public'));
@@ -32,6 +33,7 @@ app.get('/',(req,res)=>{
 });
 
 app.get('/weather',(req,res)=>{
+    
     if(!req.query.address){
         return res.send({
             error:'should provide address'
@@ -45,6 +47,7 @@ app.get('/weather',(req,res)=>{
                if(er){
                    return res.send({er});
                }
+               
                res.send({
                    title:'Weather forecast',
                    forecast: forecastData,
@@ -71,6 +74,6 @@ app.get('*',(req,res)=>{
     res.render('error');
 })
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log('server is up on port 3000');
 })
